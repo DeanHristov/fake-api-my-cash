@@ -16,11 +16,6 @@ services:
       - db-volume:/var/lib/mysql
     networks:
       - my_cash_network
-#    healthcheck:
-#      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p$$MYSQL_ROOT_PASSWORD"]
-#      timeout: 20s
-#      retries: 10
-
   # Node  Application
   app:
     build: .
@@ -37,10 +32,8 @@ services:
       - DB_NAME=my_cash
     depends_on:
       - mysql
-#      mysql:
-#        condition: service_healthy
     volumes:
-      - api-volume:/app
+      - .:/app
       - /app/node_modules
     networks:
       - my_cash_network
@@ -48,7 +41,6 @@ services:
 
 volumes:
   db-volume:
-  api-volume:
 
 networks:
   my_cash_network:
