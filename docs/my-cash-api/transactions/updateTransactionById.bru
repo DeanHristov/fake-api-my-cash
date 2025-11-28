@@ -1,0 +1,30 @@
+meta {
+  name: updateTransactionById
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{URL}}/transactions/:transactionId
+  body: json
+  auth: inherit
+}
+
+params:path {
+  transactionId: 1
+}
+
+body:json {
+  {
+    "transactionType": "INCOMES",
+    "amount": 12000,
+    "transactionDate": 1764320379847,
+    "description": "Just an example",
+    "userId": "1"  
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

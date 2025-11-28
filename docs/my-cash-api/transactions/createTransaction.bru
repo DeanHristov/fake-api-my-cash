@@ -1,0 +1,26 @@
+meta {
+  name: createTransaction
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{URL}}/new/transactions
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "transactionType": "INCOMES",
+    "amount": 12000,
+    "transactionDate": 1764320379847,
+    "description": "Just an example",
+    "userId": "1"  
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

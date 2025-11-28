@@ -1,0 +1,23 @@
+meta {
+  name: getAllTransactions
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{URL}}/transactions
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "userId": "1",
+    "byYear": "2025"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

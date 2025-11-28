@@ -1,0 +1,20 @@
+meta {
+  name: deleteTransactionById
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{URL}}/transactions/:transactionId
+  body: none
+  auth: inherit
+}
+
+params:path {
+  transactionId: 1
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

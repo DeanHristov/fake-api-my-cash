@@ -1,34 +1,134 @@
 # Motivation
 
-Basically, When we start a new project we have to do a whole bunch of boring work before starting the actual work,
-right? Also, we have to provide some kind of basic protection as well. This project trying to solve this problem.
-
-This repository is a boilerplate for API-based development and it is a simple start kit (blueprint), that provides
-minimal/common functionality to start building an API based on the ExpressJS framework and TypeScript.
-
 ## Requirements
 
-- [Node](https://nodejs.org/en/) `^16.15.0`
-- [NPM](https://www.npmjs.com/) `^8.5.5`
+- [Node](https://nodejs.org/en/) `^v22.19.0`
+- [NPM](https://www.npmjs.com/) `^10.9.3`
+- [Docker](https://www.docker.com/) `Latest one`
 
 ## Installation
-
 After confirming that your environment meets the
 above [requirements](#requirements), it is time to clone the project
 locally by doing the following:
 
 ```bash
-$ git clone git@github.com:DeanHristov/ts-express-starter-kit.git <project-name>
+$ git clone git@github.com:DeanHristov/fake-api-my-cash.git <project-name>
 $ cd <project-name>
 ```
+## Setup environment with Docker
+The following steps are required only if want to run MySQL and the API within Docker! 
+Feel free to skip next few steps in case you already have MySQL installed on your machine and
+you do want to run the API without docker. 
+Ok, let us move further. In order to install, run and seed data into databases, we will use [Docker](https://www.docker.com/) + [Docker Compose](https://docs.docker.com/compose/).
 
-When you're done with the steps above, run the following command:
+
+
+Assuming you already passed [requirements](#requirements) above and now is time to run the app. 
+
+1. In order to install and run locally the all infra, run the follow command
+```bash
+$ docker compose up -d
+```
+2. Now, we have all infra installed and running, but we do not have data. In order to do that
+we need to jump in DB container via bash and seed data. 
+    - Connect to MySQL container
+        ```bash
+        $ docker exec -it MySQL bash
+        ```
+    - Create a directory where we going to copy our DB schema and its mock data.
+        ```bash
+        $ mkdir ./work
+        ```
+   - Copy database schema - For this purpose you need make step back and run follow 
+     commands from the root directory of the project (The **host** location).
+     ```bash
+     $ docker cp ./src/data/mysql-db-schema.sql  MySQL:/work
+     ``` 
+   - Copy mock data 
+       ```bash
+        $ docker cp ./src/data/mysql-db-seed.sql  MySQL:/work
+       ```
+   - Now jump back in the container bash
+        ```bash
+        $ docker exec -it MySQL bash
+        ```
+   - Go to working directory
+        ```bash
+        $ cd ./work/
+        ```
+   - Connect to MySQL (You should be in the container)
+        ```bash
+        $ mysql -u root -p # 12345
+        ```
+   - Creating the database
+        ```bash
+        $ source ./mysql-db-schema.sql
+        ```
+   - Seed its data
+        ```bash
+        $ source ./mysql-db-seed.sql
+        ```
+
+3. Stopping the app (+ its API and DB)
+```bash
+$ docker compose stop
+```
+
+4. Stops containers and removes containers, networks, volumes, and images
+```bash
+$ docker compose down
+```
+
+## Running the app outside of Docker
+When you're done with the [Installation](#installation), run the following command:
 
 ```bash
 $ npm install # or yarn install
 ```
 
-## The starter comes with built-in functionality
+Before starting the app you must create **~/.env** file with the following
+variables:
+
+```dotenv
+NODE_PORT=3002
+
+API_VERSION=/api/v1
+
+USE_COOKIE=false
+
+# 1m = 60000
+# 10m = 600000
+# 1h = 3600000ms
+JWT_EXPIRE=10m
+
+# 1m = 60000ms
+# 10m = 600000ms
+# 1h = 3600000ms
+JWT_COOKIE_EXPIRE=10m
+JWT_SECRET=super-secret-word
+```
+
+Running the app in **development** mode.
+
+```bash
+$ npm run start:dev
+```
+
+## Running the Project in production mode.
+
+Firstly, build the app with the following command:
+
+```bash
+$ npm run build
+```
+
+Running the app in **development** mode.
+
+```bash
+$ npm start
+```
+
+## This repo comes with built-in functionality
 
 - Prevent cross site scripting - XSS
 - Add a rate limit for requests of 100 requests per 10 minutes
@@ -90,56 +190,14 @@ All tasks automation are based on [NPM scripts](https://docs.npmjs.com/misc/scri
 | `npm run test:watch`      | Running the unit tests in "watch" mode         |
 | `npm run prettier-format` | Code formatting                                |
 
-## Running the Project
-
-Before starting the app you must create **~/.env** file with the following
-variables:
-
-```dotenv
-NODE_PORT=3002
-
-API_VERSION=/api/v1
-
-USE_COOKIE=false
-
-# 1m = 60000
-# 10m = 600000
-# 1h = 3600000ms
-JWT_EXPIRE=10m
-
-# 1m = 60000ms
-# 10m = 600000ms
-# 1h = 3600000ms
-JWT_COOKIE_EXPIRE=10m
-JWT_SECRET=super-secret-word
-```
-
-Running the app in **development** mode.
-
-```bash
-$ npm run start:dev
-```
-
-## Running the Project in production mode.
-
-Firstly, build the app with the following command:
-
-```bash
-$ npm run build
-```
-
-Running the app in **development** mode.
-
-```bash
-$ npm start
-```
 
 ## Used technologies
 
-- NodeJS- https://nodejs.org/en/
+- NodeJS (v22+) - https://nodejs.org/en/
+- TypeScript (v5+) - https://www.typescriptlang.org/
+- ExpressJS (v5+) - https://expressjs.com/
 - Git - https://git-scm.com/
-- TypeScript - https://www.typescriptlang.org/
-- ExpressJS - https://expressjs.com/
+- Docker - https://www.docker.com/
 
 ## NPM Packages
 
@@ -165,5 +223,4 @@ $ npm start
 
 ## Made by
 
-Author: [D. Hristov](https://dhristov.eu/) | Version: [1.0.0](/docs/) |
-License: [MIT](https://opensource.org/licenses/MIT)
+Author: [D. Hristov](https://dhristov.eu/) | Version: [1.0.0](/docs/)
