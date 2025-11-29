@@ -1,5 +1,9 @@
 # Motivation
 
+Simply, this project giving the BE part of [My Cash App](https://github.com/DeanHristov/vite-my-cash).
+The second reason of this project is just to give you an overview whether or how
+I do manage BE part with this set of technologies in scope of REST API.  
+
 ## Requirements
 
 - [Node](https://nodejs.org/en/) `^v22.19.0`
@@ -7,6 +11,7 @@
 - [Docker](https://www.docker.com/) `Latest one`
 
 ## Installation
+
 After confirming that your environment meets the
 above [requirements](#requirements), it is time to clone the project
 locally by doing the following:
@@ -15,79 +20,10 @@ locally by doing the following:
 $ git clone git@github.com:DeanHristov/fake-api-my-cash.git <project-name>
 $ cd <project-name>
 ```
-## Setup environment with Docker
-The following steps are required only if want to run MySQL and the API within Docker! 
-Feel free to skip next few steps in case you already have MySQL installed on your machine and
-you do want to run the API without docker. 
-Ok, let us move further. In order to install, run and seed data into databases, we will use [Docker](https://www.docker.com/) + [Docker Compose](https://docs.docker.com/compose/).
 
-
-
-Assuming you already passed [requirements](#requirements) above and now is time to run the app. 
-
-1. In order to install and run locally the all infra, run the follow command
-```bash
-$ docker compose up -d
-```
-2. Now, we have all infra installed and running, but we do not have data. In order to do that
-we need to jump in DB container via bash and seed data. 
-    - Connect to MySQL container
-        ```bash
-        $ docker exec -it MySQL bash
-        ```
-    - Create a directory where we going to copy our DB schema and its mock data.
-        ```bash
-        $ mkdir ./work
-        ```
-   - Copy database schema - For this purpose you need make step back and run follow 
-     commands from the root directory of the project (The **host** location).
-     ```bash
-     $ docker cp ./src/data/mysql-db-schema.sql  MySQL:/work
-     ``` 
-   - Copy mock data 
-       ```bash
-        $ docker cp ./src/data/mysql-db-seed.sql  MySQL:/work
-       ```
-   - Now jump back in the container bash
-        ```bash
-        $ docker exec -it MySQL bash
-        ```
-   - Go to working directory
-        ```bash
-        $ cd ./work/
-        ```
-   - Connect to MySQL (You should be in the container)
-        ```bash
-        $ mysql -u root -p # 12345
-        ```
-   - Creating the database
-        ```bash
-        $ source ./mysql-db-schema.sql
-        ```
-   - Seed its data
-        ```bash
-        $ source ./mysql-db-seed.sql
-        ```
-
-3. Stopping the app (+ its API and DB)
-```bash
-$ docker compose stop
-```
-
-4. Stops containers and removes containers, networks, volumes, and images
-```bash
-$ docker compose down
-```
-
-## Running the app outside of Docker
-When you're done with the [Installation](#installation), run the following command:
-
-```bash
-$ npm install # or yarn install
-```
-
-Before starting the app you must create **~/.env** file with the following
-variables:
+Before we proceed further we need create a few environment variables.
+In order to do that you must create **~/.env** file within the root directory
+of the project and copy-paste template below.
 
 ```dotenv
 NODE_PORT=3002
@@ -108,13 +44,96 @@ JWT_COOKIE_EXPIRE=10m
 JWT_SECRET=super-secret-word
 ```
 
+## Running the app with Docker
+
+The following steps are required only if want to run MySQL and the API within
+Docker!
+Feel free to skip next few steps in case you already have MySQL and NodeJS installed on
+your machine, and
+you do want to run the API without docker.
+Ok, let us move further. In order to install, run and seed data into databases,
+we will
+use [Docker](https://www.docker.com/) + [Docker Compose](https://docs.docker.com/compose/).
+
+Assuming you already passed [requirements](#requirements) above and now is time
+to run the app.
+
+1. In order to install and run locally the all infra, run the follow command
+
+```bash
+$ docker compose up -d
+```
+
+2. Now, we have all infra installed and running, but we do not have data. In
+   order to do that
+   we need to jump in DB container via bash and seed data.
+    - Connect to MySQL container
+        ```bash
+        $ docker exec -it MySQL bash
+        ```
+    - Create a directory where we going to copy our DB schema and its mock data.
+        ```bash
+        $ mkdir ./work
+        ```
+    - Copy database schema - For this purpose you need make step back and run
+      follow
+      commands from the root directory of the project (The **host** location).
+      ```bash
+      $ docker cp ./src/data/mysql-db-schema.sql  MySQL:/work
+      ``` 
+    - Copy mock data
+        ```bash
+         $ docker cp ./src/data/mysql-db-seed.sql  MySQL:/work
+        ```
+    - Now jump back in the container bash
+         ```bash
+         $ docker exec -it MySQL bash
+         ```
+    - Go to working directory
+         ```bash
+         $ cd ./work/
+         ```
+    - Connect to MySQL (You should be in the container)
+         ```bash
+         $ mysql -u root -p # 12345
+         ```
+    - Creating the database
+         ```bash
+         $ source ./mysql-db-schema.sql
+         ```
+    - Seed its data
+         ```bash
+         $ source ./mysql-db-seed.sql
+         ```
+
+3. Stopping the app (+ its API and DB)
+
+```bash
+$ docker compose stop
+```
+
+4. Stops containers and removes containers, networks, volumes, and images
+
+```bash
+$ docker compose down
+```
+
+## Running the app without Docker
+
+When you're done with the [Installation](#installation), run the following
+command:
+
+```bash
+$ npm install # or yarn install
+```
+
 Running the app in **development** mode.
 
 ```bash
 $ npm run start:dev
 ```
 
-## Running the Project in production mode.
+### Running the Project in production mode.
 
 Firstly, build the app with the following command:
 
@@ -179,17 +198,17 @@ functionality is grouped primarily by feature rather than the file type.
 
 ## Main tasks
 
-All tasks automation are based on [NPM scripts](https://docs.npmjs.com/misc/scripts).
+All tasks automation are based
+on [NPM scripts](https://docs.npmjs.com/misc/scripts).
 
 | Tasks                     | Description                                    |
-| ------------------------- | ---------------------------------------------- |
+|---------------------------|------------------------------------------------|
 | `npm run start:dev`       | Running the app in **dev** mode                |
 | `npm run build`           | Building the code in **production-ready** mode |
 | `npm run start`           | Running the app in **prod** mode               |
 | `npm run test`            | Running the unit tests (by using jest)         |
 | `npm run test:watch`      | Running the unit tests in "watch" mode         |
 | `npm run prettier-format` | Code formatting                                |
-
 
 ## Used technologies
 
@@ -223,4 +242,4 @@ All tasks automation are based on [NPM scripts](https://docs.npmjs.com/misc/scri
 
 ## Made by
 
-Author: [D. Hristov](https://dhristov.eu/) | Version: [1.0.0](/docs/)
+Author: [D. Hristov](https://github.com/DeanHristov) | Version: [1.0.0](/docs/)
