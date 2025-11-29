@@ -13,6 +13,9 @@ import { xss } from 'express-xss-sanitizer';
 
 import errorHandler from './middlewares/errorHandler';
 import healthRoute from './routes/healthRoute';
+import userRoutes from './routes/userRoutes';
+import transactionRoutes from './routes/transactionRoutes';
+import authRoutes from './routes/authRoutes';
 
 const { NODE_PORT, NODE_ENV, API_VERSION } = process.env;
 const APP_PORT = NODE_PORT || 3000;
@@ -51,6 +54,9 @@ if (NODE_ENV === 'development') {
 
 // Adding Routes...
 app.use(`${API_VERSION}/health`, healthRoute);
+app.use(`${API_VERSION}/users`, userRoutes);
+app.use(`${API_VERSION}/transactions`, transactionRoutes);
+app.use(`${API_VERSION}/auth`, authRoutes);
 
 app.use(errorHandler);
 

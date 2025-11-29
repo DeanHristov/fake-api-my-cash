@@ -155,8 +155,15 @@ $ npm start
 - Add headers for security (helmet)
 - Use cors to make API public
 
-## Project Structure
+Currently, there are three kinds of users.
 
+| # | email             | pass  | 
+|---|-------------------|-------| 
+| 1 | user1@example.com | 12345 | 
+| 2 | user2@example.com | 12345 |
+| 3 | user3@example.com | 12345 | 
+
+## Project Structure
 The project structure presented in this boilerplate is **flatten**, where
 functionality is grouped primarily by feature rather than the file type.
 
@@ -217,28 +224,6 @@ on [NPM scripts](https://docs.npmjs.com/misc/scripts).
 - ExpressJS (v5+) - https://expressjs.com/
 - Git - https://git-scm.com/
 - Docker - https://www.docker.com/
-
-## NPM Packages
-
-- [dotenv](https://github.com/motdotla/dotenv#readme)
-- [morgan](https://github.com/expressjs/morgan)
-- [colors](https://github.com/Marak/colors.js)
-- [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken)
-- [xss-clean](https://github.com/jsonmaur/xss-clean)
-- [helmet](https://helmetjs.github.io/)
-- [hpp](https://github.com/analog-nico/hpp)
-- [express-rate-limit](https://github.com/nfriedly/express-rate-limit)
-- [cors](https://github.com/expressjs/cors)
-- [cookie-parser](https://www.npmjs.com/package/cookie-parser)
-- [typescript](https://www.npmjs.com/package/typescript)
-- [prettier](https://www.npmjs.com/package/prettier)
-- [ts-jest](https://www.npmjs.com/package/ts-jest)
-- [jest](https://www.npmjs.com/package/jest)
-- [ts-node](https://www.npmjs.com/package/ts-node)
-- [eslint](https://www.npmjs.com/package/eslint)
-- [eslint-config-prettier](https://www.npmjs.com/package/eslint-config-prettier)
-- [eslint-plugin-jest](https://www.npmjs.com/package/eslint-plugin-jest)
-- [eslint-plugin-prettier](https://www.npmjs.com/package/eslint-plugin-prettier)
 
 ## Made by
 

@@ -1,10 +1,12 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import ErrorResponse from '../utils/ErrorResponse';
 
+//@see: https://expressjs.com/en/guide/error-handling.html
 const errorHandler = (
   err: ErrorResponse,
-  req: Request,
+  _: Request,
   res: Response,
+  next: NextFunction,
 ): void => {
   const error = { ...err };
 
@@ -14,6 +16,8 @@ const errorHandler = (
     error: error?.message ?? err?.message,
     data: [],
   });
+
+  next();
 };
 
 export default errorHandler;
