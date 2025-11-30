@@ -3,11 +3,11 @@ import express, {
   Request,
   Response as ExpressResponse,
 } from 'express';
-import grantAuthentication from '../middlewares/authHandler';
+import authenticationGuardMiddleware from '../middlewares/authenticationGuardMiddleware';
 
 const router = express.Router();
 
-router.use(grantAuthentication);
+router.use(authenticationGuardMiddleware);
 
 // Get a single transaction
 router.get(

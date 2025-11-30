@@ -1,12 +1,10 @@
 import express from 'express';
-import Database from '../controllers/Database';
-import Users from '../controllers/Users';
-import grantAuthentication from '../middlewares/authHandler';
+import { getUserByIdHandler } from '../HealthController/UsersController';
+import authenticationGuardMiddleware from '../middlewares/authenticationGuardMiddleware';
 
 const route = express.Router();
-const users: Users = new Users(Database.getInstance());
 
-route.use(grantAuthentication);
+route.use(authenticationGuardMiddleware);
 
-route.get('/:userId', users.getUserById);
+route.get('/:userId', getUserByIdHandler);
 export default route;

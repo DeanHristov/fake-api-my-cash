@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import ErrorResponse from '../utils/ErrorResponse';
 
 //@see: https://expressjs.com/en/guide/error-handling.html
-const errorHandler = (
+const errorHandlerMiddleware = (
   err: ErrorResponse,
   _: Request,
   res: Response,
@@ -20,4 +20,4 @@ const errorHandler = (
   next();
 };
 
-export default errorHandler;
+export default errorHandlerMiddleware;

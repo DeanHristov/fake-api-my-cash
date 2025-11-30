@@ -2,15 +2,14 @@ import { NextFunction, Request, Response as ExpressResponse } from 'express';
 import { JwtPayload } from 'jsonwebtoken';
 import Utils from '../utils/Utils';
 import ErrorResponse from '../utils/ErrorResponse';
-import Auth from '../controllers/Auth';
 import { STATUS_CODE } from '../utils/statusCodes';
+import authService from '../services/AuthService';
 
-const grantAuthentication = async (
+const authenticationGuardMiddleware = async (
   req: Request,
   _: ExpressResponse,
   next: NextFunction,
 ): Promise<void> => {
-  const { JWT_SECRET } = process.env;
   const { authorization } = req.headers;
   let { token } = req.cookies;
 
@@ -25,7 +24,8 @@ const grantAuthentication = async (
     );
   }
 
-  const decodedToken = Auth.decodeJWToken<JwtPayload>(token, JWT_SECRET);
+  const decodedToken = authService.decodeJWToken<JwtPayload>(token);
+
   if (Utils.isNull(decodedToken)) {
     throw new ErrorResponse(
       'Error! Authentication is required!',
@@ -35,4 +35,4 @@ const grantAuthentication = async (
   next();
 };
 
-export default grantAuthentication;
+export default authenticationGuardMiddleware;

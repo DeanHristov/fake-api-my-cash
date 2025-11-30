@@ -1,46 +1,40 @@
-import mysql, { Pool } from 'mysql2/promise';
 import { FieldPacket } from 'mysql2/typings/mysql/lib/protocol/packets';
 import { IDatabase } from '../types';
+import { createPool, Pool } from 'mysql2/promise';
 
 // This class acts as driver between our API and DB (MySQL)
 
 //@see: https://github.com/DeanHristov/ts-design-patterns-cheat-sheet/wiki/Singleton-Design-Pattern
 //@see: https://sidorares.github.io/node-mysql2/docs
-class Database implements IDatabase {
-  private static instance: Database;
+class DatabaseService implements IDatabase {
+  private static instance: DatabaseService;
   private pool: Pool;
-  // private isConnected: boolean = false;
 
   private constructor() {
-    this.pool = mysql.createPool({
+    this.pool = createPool({
       host: process.env.DB_HOST,
       port: parseInt(process.env.DB_PORT!),
       user: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      waitForConnections: true,
-      connectionLimit: 10,
-      queueLimit: 0,
-      idleTimeout: 60000,
+      idleTimeout: 10000,
     });
   }
 
-  public static getInstance(): Database {
-    if (!Database.instance) {
-      Database.instance = new Database();
+  public static getInstance(): DatabaseService {
+    if (!DatabaseService.instance) {
+      DatabaseService.instance = new DatabaseService();
     }
 
-    return Database.instance;
+    return DatabaseService.instance;
   }
 
   // Checking whether DB connections is connected
   public async healthCheck(): Promise<boolean> {
     try {
       await this.pool.execute('SELECT 1');
-      // this.isConnected = true;
       return true;
     } catch (error) {
-      // this.isConnected = false;
       console.error('DB health check failed:', error);
       return false;
     }
@@ -87,4 +81,4 @@ class Database implements IDatabase {
   }
 }
 
-export default Database;
+export default DatabaseService;
