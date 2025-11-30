@@ -1,59 +1,34 @@
-import express, {
-  NextFunction,
-  Request,
-  Response as ExpressResponse,
-} from 'express';
+import express from 'express';
 import authenticationGuardMiddleware from '../middlewares/authenticationGuardMiddleware';
+import {
+  createTransaction,
+  deleteTransactionById,
+  getAllTransactions,
+  getAllTransactionsByUserId,
+  getTransactionById,
+  updateTransactionById,
+} from '../controllers/TransactionsController';
 
 const router = express.Router();
 
 router.use(authenticationGuardMiddleware);
 
-// Get a single transaction
-router.get(
-  '/:transactionId',
-  (req: Request, res: ExpressResponse, next: NextFunction) => {
-    res.json({
-      status: 'ok',
-    });
-  },
-);
+// Get all transactions
+router.get('/', getAllTransactions);
+
+// Get a single transaction when the user is no matter
+router.get('/:transactionId', getTransactionById);
 
 // Pull all transactions peer USER and YEAR
-router.post('/', (req: Request, res: ExpressResponse, next: NextFunction) => {
-  // const { userId, byYear } = req.body;
-  res.json({
-    status: 'ok',
-  });
-});
-
-// Creating a new transaction
-router.post(
-  '/new',
-  (req: Request, res: ExpressResponse, next: NextFunction) => {
-    res.json({
-      status: 'ok',
-    });
-  },
-);
-
-// Updating existing transaction
-router.patch(
-  '/:transactionId',
-  (req: Request, res: ExpressResponse, next: NextFunction) => {
-    res.json({
-      status: 'ok',
-    });
-  },
-);
+router.post('/', getAllTransactionsByUserId);
 
 // deleting existing transaction
-router.delete(
-  '/:transactionId',
-  (req: Request, res: ExpressResponse, next: NextFunction) => {
-    res.json({
-      status: 'ok',
-    });
-  },
-);
+router.delete('/:transactionId', deleteTransactionById);
+
+// Creating a new transaction
+router.post('/new', createTransaction);
+
+// Updating existing transaction
+router.patch('/:transactionId', updateTransactionById);
+
 export default router;

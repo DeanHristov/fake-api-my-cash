@@ -16,7 +16,7 @@ export interface IUser {
 // We define this database contract in this way because
 // later we can easily swap between diff type of DBs.
 // Example: MySQL <-> PostgreSQL <-> Mongo etc.
-interface IDatabase {
+export interface IDatabase {
   healthCheck: () => Promise<boolean>;
   query: <T>(query: string) => Promise<[T, FieldPacket[]]>;
   execute: <T>(
@@ -24,4 +24,16 @@ interface IDatabase {
     params: Array<string | number>,
   ) => Promise<[T, FieldPacket[]]>;
   close: (query: string) => Promise<void>;
+}
+
+export type TTransactionType = 'INCOMES' | 'OUTGOING';
+export interface ITransaction {
+  id: number;
+  userId: number;
+  amount: number;
+  description: string;
+  transaction_date: string;
+  type: TTransactionType;
+  created_at: string;
+  updated_at: string;
 }
