@@ -1,5 +1,5 @@
 import express from 'express';
-import { getUserByIdHandler } from '../HealthController/UsersController';
+import { getUserByIdHandler } from '../controllers/UsersController';
 import authenticationGuardMiddleware from '../middlewares/authenticationGuardMiddleware';
 
 const route = express.Router();

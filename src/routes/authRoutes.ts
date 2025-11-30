@@ -1,6 +1,6 @@
 import express from 'express';
 import assignTokenMiddleware from '../middlewares/assignTokenMiddleware';
-import { singIn, singOut, singUp } from '../HealthController/AuthController';
+import { singIn, singOut, singUp } from '../controllers/AuthController';
 
 const route = express.Router();
 
