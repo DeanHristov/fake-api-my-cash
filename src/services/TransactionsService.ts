@@ -40,7 +40,7 @@ class TransactionsService {
     date: string,
   ): Promise<ITransaction[] | null> {
     const [rows] = await this.db.execute<ITransaction[]>(
-      'SELECT * FROM `transactions` WHERE `user_id` and `transaction_date` = ?',
+      'SELECT * FROM `transactions` WHERE `user_id` and `created_at` = ?',
       [userId, date],
     );
 

@@ -15,137 +15,138 @@ VALUES ('john_doe', 'user1@example.com',
         'Johnson', 'USD');
 
 -- Insert 100 transactions for the 3 users (mixed incomes and outgoings)
-INSERT INTO transactions (user_id, amount, description, transaction_date, type)
+INSERT INTO transactions (user_id, amount, description, type,
+                          status)
 VALUES
 
--- UsersController 1 (john_doe) - Incomes
-(1, 2500.00, 'Monthly Salary', '2024-01-05', 'INCOMES'),
-(1, 300.00, 'Freelance Project', '2024-01-12', 'INCOMES'),
-(1, 150.00, 'Investment Dividends', '2024-01-20', 'INCOMES'),
-(1, 2500.00, 'Monthly Salary', '2024-02-05', 'INCOMES'),
-(1, 200.00, 'Bonus Payment', '2024-02-15', 'INCOMES'),
+-- User 1 (john_doe) - Incomes
+(1, 2500.00, 'Monthly Salary', 'INCOMES', 'PENDING'),
+(1, 300.00, 'Freelance Project', 'INCOMES', 'COMPLETED'),
+(1, 150.00, 'Investment Dividends', 'INCOMES', 'FAILED'),
+(1, 2500.00, 'Monthly Salary', 'INCOMES', 'COMPLETED'),
+(1, 200.00, 'Bonus Payment', 'INCOMES', 'COMPLETED'),
 
--- UsersController 1 (john_doe) - Outgoings
-(1, 1200.00, 'Rent Payment', '2024-01-01', 'OUTGOING'),
-(1, 85.50, 'Grocery Shopping', '2024-01-07', 'OUTGOING'),
-(1, 45.00, 'Electricity Bill', '2024-01-10', 'OUTGOING'),
-(1, 60.00, 'Internet Bill', '2024-01-11', 'OUTGOING'),
-(1, 35.75, 'Gas Station', '2024-01-12', 'OUTGOING'),
-(1, 120.00, 'Restaurant Dinner', '2024-01-15', 'OUTGOING'),
-(1, 89.99, 'Netflix Subscription', '2024-01-16', 'OUTGOING'),
-(1, 75.30, 'Grocery Shopping', '2024-01-21', 'OUTGOING'),
-(1, 45.00, 'Mobile Phone Bill', '2024-01-22', 'OUTGOING'),
-(1, 150.00, 'Shopping Mall', '2024-01-25', 'OUTGOING'),
-(1, 1200.00, 'Rent Payment', '2024-02-01', 'OUTGOING'),
-(1, 92.40, 'Grocery Shopping', '2024-02-07', 'OUTGOING'),
-(1, 45.00, 'Electricity Bill', '2024-02-10', 'OUTGOING'),
-(1, 60.00, 'Internet Bill', '2024-02-11', 'OUTGOING'),
-(1, 42.50, 'Gas Station', '2024-02-14', 'OUTGOING'),
+-- User 1 (john_doe) - Outgoings
+(1, 1200.00, 'Rent Payment', 'OUTGOING', 'COMPLETED'),
+(1, 85.50, 'Grocery Shopping', 'OUTGOING', 'COMPLETED'),
+(1, 45.00, 'Electricity Bill', 'OUTGOING', 'COMPLETED'),
+(1, 60.00, 'Internet Bill', 'OUTGOING', 'FAILED'),
+(1, 35.75, 'Gas Station', 'OUTGOING', 'COMPLETED'),
+(1, 120.00, 'Restaurant Dinner', 'OUTGOING', 'COMPLETED'),
+(1, 89.99, 'Netflix Subscription', 'OUTGOING', 'COMPLETED'),
+(1, 75.30, 'Grocery Shopping', 'OUTGOING', 'COMPLETED'),
+(1, 45.00, 'Mobile Phone Bill', 'OUTGOING', 'PENDING'),
+(1, 150.00, 'Shopping Mall', 'OUTGOING', 'FAILED'),
+(1, 1200.00, 'Rent Payment', 'OUTGOING', 'PENDING'),
+(1, 92.40, 'Grocery Shopping', 'OUTGOING', 'PENDING'),
+(1, 45.00, 'Electricity Bill', 'OUTGOING', 'FAILED'),
+(1, 60.00, 'Internet Bill', 'OUTGOING', 'PENDING'),
+(1, 42.50, 'Gas Station', 'OUTGOING', 'FAILED'),
 
--- UsersController 2 (sarah_smith) - Incomes
-(2, 2200.00, 'Monthly Salary', '2024-01-03', 'INCOMES'),
-(2, 180.00, 'Freelance Writing', '2024-01-10', 'INCOMES'),
-(2, 100.00, 'Online Course Sales', '2024-01-18', 'INCOMES'),
-(2, 2200.00, 'Monthly Salary', '2024-02-03', 'INCOMES'),
-(2, 250.00, 'Consulting Work', '2024-02-12', 'INCOMES'),
+-- User 2 (sarah_smith) - Incomes
+(2, 2200.00, 'Monthly Salary', 'INCOMES', 'COMPLETED'),
+(2, 180.00, 'Freelance Writing', 'INCOMES', 'COMPLETED'),
+(2, 100.00, 'Online Course Sales', 'INCOMES', 'COMPLETED'),
+(2, 2200.00, 'Monthly Salary', 'INCOMES', 'FAILED'),
+(2, 250.00, 'Consulting Work', 'INCOMES', 'PENDING'),
 
--- UsersController 2 (sarah_smith) - Outgoings
-(2, 950.00, 'Rent Payment', '2024-01-01', 'OUTGOING'),
-(2, 65.80, 'Grocery Shopping', '2024-01-05', 'OUTGOING'),
-(2, 35.00, 'Water Bill', '2024-01-08', 'OUTGOING'),
-(2, 55.00, 'Internet Bill', '2024-01-09', 'OUTGOING'),
-(2, 28.90, 'Public Transport', '2024-01-11', 'OUTGOING'),
-(2, 85.00, 'Hair Salon', '2024-01-13', 'OUTGOING'),
-(2, 12.99, 'Spotify Subscription', '2024-01-15', 'OUTGOING'),
-(2, 70.45, 'Grocery Shopping', '2024-01-19', 'OUTGOING'),
-(2, 40.00, 'Mobile Phone Bill', '2024-01-20', 'OUTGOING'),
-(2, 120.00, 'Gym Membership', '2024-01-22', 'OUTGOING'),
-(2, 950.00, 'Rent Payment', '2024-02-01', 'OUTGOING'),
-(2, 68.30, 'Grocery Shopping', '2024-02-05', 'OUTGOING'),
-(2, 35.00, 'Water Bill', '2024-02-08', 'OUTGOING'),
-(2, 55.00, 'Internet Bill', '2024-02-09', 'OUTGOING'),
-(2, 32.50, 'Public Transport', '2024-02-11', 'OUTGOING'),
+-- User 2 (sarah_smith) - Outgoings
+(2, 950.00, 'Rent Payment', 'OUTGOING', 'COMPLETED'),
+(2, 65.80, 'Grocery Shopping', 'OUTGOING', 'COMPLETED'),
+(2, 35.00, 'Water Bill', 'OUTGOING', 'COMPLETED'),
+(2, 55.00, 'Internet Bill', 'OUTGOING', 'COMPLETED'),
+(2, 28.90, 'Public Transport', 'OUTGOING', 'COMPLETED'),
+(2, 85.00, 'Hair Salon', 'OUTGOING', 'COMPLETED'),
+(2, 12.99, 'Spotify Subscription', 'OUTGOING', 'COMPLETED'),
+(2, 70.45, 'Grocery Shopping', 'OUTGOING', 'COMPLETED'),
+(2, 40.00, 'Mobile Phone Bill', 'OUTGOING', 'PENDING'),
+(2, 120.00, 'Gym Membership', 'OUTGOING', 'PENDING'),
+(2, 950.00, 'Rent Payment', 'OUTGOING', 'PENDING'),
+(2, 68.30, 'Grocery Shopping', 'OUTGOING', 'PENDING'),
+(2, 35.00, 'Water Bill', 'OUTGOING', 'PENDING'),
+(2, 55.00, 'Internet Bill', 'OUTGOING', 'PENDING'),
+(2, 32.50, 'Public Transport', 'OUTGOING', 'FAILED'),
 
--- UsersController 3 (mike_johnson) - Incomes
-(3, 3200.00, 'Monthly Salary', '2024-01-07', 'INCOMES'),
-(3, 450.00, 'Contract Work', '2024-01-14', 'INCOMES'),
-(3, 200.00, 'Stock Dividends', '2024-01-21', 'INCOMES'),
-(3, 3200.00, 'Monthly Salary', '2024-02-07', 'INCOMES'),
-(3, 300.00, 'Side Project', '2024-02-16', 'INCOMES'),
+-- User 3 (mike_johnson) - Incomes
+(3, 3200.00, 'Monthly Salary', 'INCOMES', 'COMPLETED'),
+(3, 450.00, 'Contract Work', 'INCOMES', 'COMPLETED'),
+(3, 200.00, 'Stock Dividends', 'INCOMES', 'COMPLETED'),
+(3, 3200.00, 'Monthly Salary', 'INCOMES', 'FAILED'),
+(3, 300.00, 'Side Project', 'INCOMES', 'FAILED'),
 
--- UsersController 3 (mike_johnson) - Outgoings
-(3, 1400.00, 'Mortgage Payment', '2024-01-01', 'OUTGOING'),
-(3, 110.25, 'Grocery Shopping', '2024-01-06', 'OUTGOING'),
-(3, 75.00, 'Electricity Bill', '2024-01-09', 'OUTGOING'),
-(3, 70.00, 'Internet Bill', '2024-01-10', 'OUTGOING'),
-(3, 55.80, 'Gas Station', '2024-01-13', 'OUTGOING'),
-(3, 150.00, 'Home Insurance', '2024-01-15', 'OUTGOING'),
-(3, 15.99, 'Amazon Prime', '2024-01-16', 'OUTGOING'),
-(3, 95.60, 'Grocery Shopping', '2024-01-20', 'OUTGOING'),
-(3, 60.00, 'Mobile Phone Bill', '2024-01-21', 'OUTGOING'),
-(3, 200.00, 'Car Payment', '2024-01-25', 'OUTGOING'),
-(3, 1400.00, 'Mortgage Payment', '2024-02-01', 'OUTGOING'),
-(3, 105.75, 'Grocery Shopping', '2024-02-06', 'OUTGOING'),
-(3, 75.00, 'Electricity Bill', '2024-02-09', 'OUTGOING'),
-(3, 70.00, 'Internet Bill', '2024-02-10', 'OUTGOING'),
-(3, 48.90, 'Gas Station', '2024-02-13', 'OUTGOING'),
+-- User 3 (mike_johnson) - Outgoings
+(3, 1400.00, 'Mortgage Payment', 'OUTGOING', 'COMPLETED'),
+(3, 110.25, 'Grocery Shopping', 'OUTGOING', 'COMPLETED'),
+(3, 75.00, 'Electricity Bill', 'OUTGOING', 'COMPLETED'),
+(3, 70.00, 'Internet Bill', 'OUTGOING', 'COMPLETED'),
+(3, 55.80, 'Gas Station', 'OUTGOING', 'COMPLETED'),
+(3, 150.00, 'Home Insurance', 'OUTGOING', 'COMPLETED'),
+(3, 15.99, 'Amazon Prime', 'OUTGOING', 'COMPLETED'),
+(3, 95.60, 'Grocery Shopping', 'OUTGOING', 'COMPLETED'),
+(3, 60.00, 'Mobile Phone Bill', 'OUTGOING', 'COMPLETED'),
+(3, 200.00, 'Car Payment', 'OUTGOING', 'COMPLETED'),
+(3, 1400.00, 'Mortgage Payment', 'OUTGOING', 'COMPLETED'),
+(3, 105.75, 'Grocery Shopping', 'OUTGOING', 'COMPLETED'),
+(3, 75.00, 'Electricity Bill', 'OUTGOING', 'COMPLETED'),
+(3, 70.00, 'Internet Bill', 'OUTGOING', 'COMPLETED'),
+(3, 48.90, 'Gas Station', 'OUTGOING', 'FAILED'),
 
--- UsersController 1 - More transactions
-(1, 25.00, 'Coffee Shop', '2024-01-08', 'OUTGOING'),
-(1, 45.00, 'Lunch with Colleagues', '2024-01-09', 'OUTGOING'),
-(1, 30.00, 'Uber Ride', '2024-01-14', 'OUTGOING'),
-(1, 80.00, 'Movie Tickets', '2024-01-18', 'OUTGOING'),
-(1, 120.00, 'Amazon Purchase', '2024-01-23', 'OUTGOING'),
-(1, 35.00, 'Pharmacy', '2024-01-26', 'OUTGOING'),
-(1, 65.00, 'Book Store', '2024-01-28', 'OUTGOING'),
-(1, 28.00, 'Coffee Shop', '2024-02-08', 'OUTGOING'),
-(1, 50.00, 'Team Lunch', '2024-02-09', 'OUTGOING'),
+-- User 1 - More transactions
+(1, 25.00, 'Coffee Shop', 'OUTGOING', 'COMPLETED'),
+(1, 45.00, 'Lunch with Colleagues', 'OUTGOING', 'COMPLETED'),
+(1, 30.00, 'Uber Ride', 'OUTGOING', 'COMPLETED'),
+(1, 80.00, 'Movie Tickets', 'OUTGOING', 'COMPLETED'),
+(1, 120.00, 'Amazon Purchase', 'OUTGOING', 'COMPLETED'),
+(1, 35.00, 'Pharmacy', 'OUTGOING', 'FAILED'),
+(1, 65.00, 'Book Store', 'OUTGOING', 'PENDING'),
+(1, 28.00, 'Coffee Shop', 'OUTGOING', 'PENDING'),
+(1, 50.00, 'Team Lunch', 'OUTGOING', 'FAILED'),
 
--- UsersController 2 - More transactions
-(2, 22.50, 'Coffee Shop', '2024-01-04', 'OUTGOING'),
-(2, 35.00, 'Lunch Meeting', '2024-01-06', 'OUTGOING'),
-(2, 25.00, 'Taxi Ride', '2024-01-12', 'OUTGOING'),
-(2, 60.00, 'Concert Tickets', '2024-01-17', 'OUTGOING'),
-(2, 95.00, 'Online Shopping', '2024-01-24', 'OUTGOING'),
-(2, 28.00, 'Pharmacy', '2024-01-27', 'OUTGOING'),
-(2, 45.00, 'Stationery', '2024-01-29', 'OUTGOING'),
-(2, 24.00, 'Coffee Shop', '2024-02-04', 'OUTGOING'),
-(2, 40.00, 'Client Lunch', '2024-02-06', 'OUTGOING'),
+-- User 2 - More transactions
+(2, 22.50, 'Coffee Shop', 'OUTGOING', 'COMPLETED'),
+(2, 35.00, 'Lunch Meeting', 'OUTGOING', 'COMPLETED'),
+(2, 25.00, 'Taxi Ride', 'OUTGOING', 'COMPLETED'),
+(2, 60.00, 'Concert Tickets', 'OUTGOING', 'COMPLETED'),
+(2, 95.00, 'Online Shopping', 'OUTGOING', 'COMPLETED'),
+(2, 28.00, 'Pharmacy', 'OUTGOING', 'PENDING'),
+(2, 45.00, 'Stationery', 'OUTGOING', 'FAILED'),
+(2, 24.00, 'Coffee Shop', 'OUTGOING', 'PENDING'),
+(2, 40.00, 'Client Lunch', 'OUTGOING', 'COMPLETED'),
 
--- UsersController 3 - More transactions
-(3, 30.00, 'Coffee Shop', '2024-01-05', 'OUTGOING'),
-(3, 60.00, 'Business Dinner', '2024-01-08', 'OUTGOING'),
-(3, 35.00, 'Ride Sharing', '2024-01-11', 'OUTGOING'),
-(3, 100.00, 'Sports Event', '2024-01-19', 'OUTGOING'),
-(3, 150.00, 'Electronics Store', '2024-01-24', 'OUTGOING'),
-(3, 42.00, 'Pharmacy', '2024-01-27', 'OUTGOING'),
-(3, 75.00, 'Home Decor', '2024-01-30', 'OUTGOING'),
-(3, 32.00, 'Coffee Shop', '2024-02-05', 'OUTGOING'),
-(3, 70.00, 'Networking Event', '2024-02-08', 'OUTGOING'),
+-- User 3 - More transactions
+(3, 30.00, 'Coffee Shop', 'OUTGOING', 'COMPLETED'),
+(3, 60.00, 'Business Dinner', 'OUTGOING', 'COMPLETED'),
+(3, 35.00, 'Ride Sharing', 'OUTGOING', 'COMPLETED'),
+(3, 100.00, 'Sports Event', 'OUTGOING', 'COMPLETED'),
+(3, 150.00, 'Electronics Store', 'OUTGOING', 'FAILED'),
+(3, 42.00, 'Pharmacy', 'OUTGOING', 'COMPLETED'),
+(3, 75.00, 'Home Decor', 'OUTGOING', 'PENDING'),
+(3, 32.00, 'Coffee Shop', 'OUTGOING', 'FAILED'),
+(3, 70.00, 'Networking Event', 'OUTGOING', 'COMPLETED'),
 
-(1, 400.00, 'Tax Refund', '2024-02-20', 'INCOMES'),
-(2, 180.00, 'Freelance Project', '2024-02-18', 'INCOMES'),
-(3, 500.00, 'Bonus Payment', '2024-02-25', 'INCOMES');
+(1, 400.00, 'Tax Refund', 'INCOMES', 'PENDING'),
+(2, 180.00, 'Freelance Project', 'INCOMES', 'PENDING'),
+(3, 500.00, 'Bonus Payment', 'INCOMES', 'PENDING');
 
 
 -- Insert records into incomes table (for all income transactions)
 INSERT INTO incomes (transaction_id, source, is_taxable, amount, income_type)
 VALUES
--- UsersController 1 Incomes
+-- User 1 Incomes
 (1, 'Tech Company Inc', TRUE, 4200.00, 'salary'),
 (2, 'Freelance Client A', TRUE, 1200.00, 'freelance'),
 (3, 'Investment Portfolio', TRUE, 400.00, 'investment'),
 (4, 'Tech Company Inc', TRUE, 5400.00, 'salary'),
 (5, 'Tech Company Inc', TRUE, 600.00, 'bonus'),
 
--- UsersController 2 Incomes
+-- User 2 Incomes
 (21, 'Marketing Agency', TRUE, 8000.00, 'salary'),
 (22, 'Content Writing Client', TRUE, 20.00, 'freelance'),
 (23, 'Online Course Platform', TRUE, 900.00, 'business'),
 (24, 'Marketing Agency', TRUE, 2300.00, 'salary'),
 (25, 'Business Consulting', TRUE, 500.00, 'consulting'),
 
--- UsersController 3 Incomes
+-- User 3 Incomes
 (41, 'Software Corp', TRUE, 12300.00, 'salary'),
 (42, 'Contract Client B', TRUE, 900.00, 'contract'),
 (43, 'Stock Investments', TRUE, 4000.00, 'investment'),
@@ -155,7 +156,7 @@ VALUES
 -- Insert records into outgoings table (for all outgoing transactions)
 INSERT INTO outgoings (transaction_id, is_essential, outgoing_type)
 VALUES
--- UsersController 1 Outgoings
+-- User 1 Outgoings
 (6, TRUE, 'housing'),
 (7, TRUE, 'food'),
 (8, TRUE, 'utilities'),
@@ -181,7 +182,7 @@ VALUES
 (53, FALSE, 'dining'),
 (54, FALSE, 'dining'),
 
--- UsersController 2 Outgoings
+-- User 2 Outgoings
 (26, TRUE, 'housing'),
 (27, TRUE, 'food'),
 (28, TRUE, 'utilities'),
@@ -207,7 +208,7 @@ VALUES
 (62, FALSE, 'dining'),
 (63, FALSE, 'dining'),
 
--- UsersController 3 Outgoings
+-- User 3 Outgoings
 (64, TRUE, 'housing'),
 (65, TRUE, 'food'),
 (66, TRUE, 'utilities'),

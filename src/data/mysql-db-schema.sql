@@ -1,5 +1,6 @@
 -- Create database
-CREATE DATABASE IF NOT EXISTS my_cash;
+DROP DATABASE IF EXISTS my_cash;
+CREATE DATABASE my_cash;
 USE my_cash;
 
 -- UsersController table
@@ -22,20 +23,20 @@ CREATE TABLE IF NOT EXISTS users
 -- Main transactions table (parent table for both incomes and outgoings)
 CREATE TABLE IF NOT EXISTS transactions
 (
-    id               INT PRIMARY KEY AUTO_INCREMENT,
-    user_id          INT                          NOT NULL,
-    amount           DECIMAL(15, 2)               NOT NULL,
-    description      VARCHAR(255)                 NOT NULL,
-    transaction_date DATE                         NOT NULL,
-    type             ENUM ('INCOMES', 'OUTGOING') NOT NULL,
+    id          INT PRIMARY KEY AUTO_INCREMENT,
+    user_id     INT                                     NOT NULL,
+    amount      DECIMAL(15, 2)                          NOT NULL,
+    description VARCHAR(255)                            NOT NULL,
+    status      ENUM ('PENDING', 'COMPLETED', 'FAILED') NOT NULL,
+    type        ENUM ('INCOMES', 'OUTGOING')            NOT NULL,
 --                               is_recurring BOOLEAN DEFAULT FALSE,
 --                               recurrence_pattern ENUM('daily', 'weekly', 'monthly', 'yearly') NULL,
 --                               next_recurrence_date DATE NULL,
-    created_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
     INDEX idx_transactions_user (user_id),
-    INDEX idx_transactions_date (transaction_date),
+    INDEX idx_transactions_status (status),
     INDEX idx_transactions_type (type)
 --                               INDEX idx_transactions_recurring (is_recurring)
 );
