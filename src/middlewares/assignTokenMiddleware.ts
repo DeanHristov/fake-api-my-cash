@@ -8,7 +8,6 @@ import ms from 'ms';
 import { STATUS_CODE } from '../utils/statusCodes';
 import Response from '../utils/Response';
 import authService from '../services/AuthService';
-import { IUser } from '../types';
 
 const assignTokenMiddleware = async (
   _: ExpressRequest,
@@ -17,7 +16,9 @@ const assignTokenMiddleware = async (
 ) => {
   const { NODE_ENV, JWT_COOKIE_EXPIRE, USE_COOKIE } = process.env;
   const { user } = res.locals;
-  const token: string = await authService.createJWToken<IUser>(user);
+  const token: string = await authService.createJWToken<{ userId: number }>({
+    userId: user.id,
+  });
   const shouldUseCookies: boolean = USE_COOKIE === 'true';
 
   if (shouldUseCookies) {

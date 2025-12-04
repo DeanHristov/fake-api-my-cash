@@ -1,7 +1,23 @@
-import { ITransaction } from '../types';
 import Utils from '../utils/Utils';
 import DatabaseService from './DatabaseService';
 import { ResultSetHeader } from 'mysql2';
+
+export type TTransactionType = 'INCOMES' | 'OUTGOING';
+
+export interface ILatestAmountPayload {
+  amount: string;
+}
+
+export interface ITransaction {
+  id: number;
+  userId: number;
+  amount: number;
+  description: string;
+  transaction_date: string;
+  type: TTransactionType;
+  created_at: string;
+  updated_at: string;
+}
 
 class TransactionsService {
   constructor(private readonly db: DatabaseService) {}
@@ -52,6 +68,42 @@ class TransactionsService {
     if (affectedRows > 0) return true;
 
     return false;
+  }
+
+  public async getLatestIncomeAmountByUserId(userId: string): Promise<string> {
+    const [rows] = await this.db.execute<ILatestAmountPayload[]>(
+      `
+            select t.amount
+                from transactions as t
+                left join incomes as i on i.id = t.id
+            where t.user_id = ?
+            and t.type = 'INCOMES'
+            order by t.transaction_date desc
+            limit 1;
+      `,
+      [userId],
+    );
+
+    return rows[0]?.amount || '0.00';
+  }
+
+  public async getLatestOutgoingAmountByUserId(
+    userId: string,
+  ): Promise<string> {
+    const [rows] = await this.db.execute<ILatestAmountPayload[]>(
+      `
+            select *
+                from transactions as t
+                left join outgoings as o on o.id = t.id
+            where t.user_id = ?
+            and t.type = 'OUTGOING'
+            order by t.transaction_date desc
+            limit 1;
+      `,
+      [userId],
+    );
+
+    return rows[0]?.amount || '0.00';
   }
 }
 

@@ -1,17 +1,17 @@
 meta {
-  name: getUserById
+  name: Get income by Id
   type: http
   seq: 1
 }
 
 get {
-  url: {{URL}}/users/:userId
+  url: {{URL}}/incomes/:incomeId
   body: none
   auth: inherit
 }
 
 params:path {
-  userId: 4
+  incomeId: 8
 }
 
 settings {

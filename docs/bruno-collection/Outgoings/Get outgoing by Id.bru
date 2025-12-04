@@ -1,17 +1,17 @@
 meta {
-  name: getUserById
+  name: Get outgoing by Id
   type: http
   seq: 1
 }
 
 get {
-  url: {{URL}}/users/:userId
+  url: {{URL}}/outgoings/:outgoingId
   body: none
   auth: inherit
 }
 
 params:path {
-  userId: 4
+  outgoingId: 
 }
 
 settings {

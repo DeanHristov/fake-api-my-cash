@@ -1,0 +1,24 @@
+meta {
+  name: Replace income by Id
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{URL}}/incomes/:incomeId
+  body: json
+  auth: inherit
+}
+
+params:path {
+  incomeId: 4
+}
+
+body:json {
+  {}
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

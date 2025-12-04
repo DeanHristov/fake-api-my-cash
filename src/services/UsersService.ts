@@ -1,6 +1,20 @@
-import { IUser } from '../types';
 import Utils from '../utils/Utils';
 import DatabaseService from './DatabaseService';
+
+export type TCurrency = 'USD';
+export interface IUser {
+  id: number;
+  username: string;
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  currency_code: TCurrency;
+  created_at: Date;
+  updated_at: Date;
+  incomes: string;
+  outgoing: string;
+}
 
 class UsersService {
   constructor(private readonly db: DatabaseService) {}

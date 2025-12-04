@@ -1,0 +1,24 @@
+meta {
+  name: Update income by Id
+  type: http
+  seq: 5
+}
+
+patch {
+  url: {{URL}}/incomes/:incomeId
+  body: json
+  auth: inherit
+}
+
+params:path {
+  incomeId: 4
+}
+
+body:json {
+  {}
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

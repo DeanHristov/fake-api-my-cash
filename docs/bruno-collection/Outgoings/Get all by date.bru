@@ -1,0 +1,22 @@
+meta {
+  name: Get all by date
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{URL}}/outgoings
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "byDate": "2025-01-15"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

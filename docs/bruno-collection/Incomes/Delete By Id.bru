@@ -1,17 +1,17 @@
 meta {
-  name: getUserById
+  name: Delete By Id
   type: http
-  seq: 1
+  seq: 4
 }
 
-get {
-  url: {{URL}}/users/:userId
+delete {
+  url: {{URL}}/incomes/:incomeId
   body: none
   auth: inherit
 }
 
 params:path {
-  userId: 4
+  incomeId: 6
 }
 
 settings {

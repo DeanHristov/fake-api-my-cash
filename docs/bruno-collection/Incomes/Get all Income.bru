@@ -1,13 +1,13 @@
 meta {
-  name: HealthCheck
+  name: Get all Income
   type: http
-  seq: 4
+  seq: 2
 }
 
 get {
-  url: {{URL}}/health
+  url: {{URL}}/incomes
   body: none
-  auth: none
+  auth: inherit
 }
 
 settings {

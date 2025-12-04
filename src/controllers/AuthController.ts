@@ -1,10 +1,9 @@
 import { NextFunction, Request, Response as ExpressResponse } from 'express';
-import { IUser } from '../types';
 import Utils from '../utils/Utils';
 import ErrorResponse from '../utils/ErrorResponse';
 import { STATUS_CODE } from '../utils/statusCodes';
 import { compareSync } from 'bcryptjs';
-import usersService from '../services/UsersService';
+import usersService, { IUser } from '../services/UsersService';
 
 const singIn = async (
   req: Request,
@@ -37,9 +36,8 @@ const singUp = async (
   res: ExpressResponse,
   next: NextFunction,
 ) => {
-  res.json({
-    status: 'ok',
-  });
+  //TODO Implement it!
+  throw new Error('Method not implemented.');
 };
 
 const singOut = async (
@@ -47,9 +45,8 @@ const singOut = async (
   res: ExpressResponse,
   next: NextFunction,
 ) => {
-  res.json({
-    status: 'ok',
-  });
+  //TODO Implement it!
+  throw new Error('Method not implemented.');
 };
 
 export { singIn, singUp, singOut };

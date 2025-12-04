@@ -1,13 +1,13 @@
 meta {
-  name: HealthCheck
+  name: Get all
   type: http
-  seq: 4
+  seq: 2
 }
 
 get {
-  url: {{URL}}/health
+  url: {{URL}}/outgoings
   body: none
-  auth: none
+  auth: inherit
 }
 
 settings {

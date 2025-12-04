@@ -15,6 +15,8 @@ import userRoutes from './routes/userRoutes';
 import transactionRoutes from './routes/transactionRoutes';
 import authRoutes from './routes/authRoutes';
 import errorHandlerMiddleware from './middlewares/errorHandlerMiddleware';
+import incomesRoute from './routes/incomesRoute';
+import outgoingsRoute from './routes/OutgoingsRoute';
 
 const { NODE_PORT, NODE_ENV, API_VERSION } = process.env;
 const APP_PORT = NODE_PORT || 3000;
@@ -56,6 +58,8 @@ app.use(`${API_VERSION}/health`, healthRoute);
 app.use(`${API_VERSION}/users`, userRoutes);
 app.use(`${API_VERSION}/transactions`, transactionRoutes);
 app.use(`${API_VERSION}/auth`, authRoutes);
+app.use(`${API_VERSION}/incomes`, incomesRoute);
+app.use(`${API_VERSION}/outgoings`, outgoingsRoute);
 
 app.use(errorHandlerMiddleware);
 

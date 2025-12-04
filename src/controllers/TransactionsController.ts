@@ -1,8 +1,9 @@
 import { Request, Response as NextResponse } from 'express';
 import Response from '../utils/Response';
 import { STATUS_CODE } from '../utils/statusCodes';
-import { ITransaction } from '../types';
-import transactionsService from '../services/TransactionsService';
+import transactionsService, {
+  ITransaction,
+} from '../services/TransactionsService';
 import Utils from '../utils/Utils';
 import ErrorResponse from '../utils/ErrorResponse';
 
@@ -64,14 +65,13 @@ const getAllTransactions = async (req: Request, res: NextResponse) => {
 
 const updateTransactionById = async (req: Request, res: NextResponse) => {
   // const { transactionId } = req.params;
-
   //TODO Implement it!
-  return res.json(new Response('ok'));
+  throw new Error('Method not implemented.');
 };
 
 const createTransaction = async (req: Request, res: NextResponse) => {
   //TODO Implement it!
-  return res.json(new Response('ok'));
+  throw new Error('Method not implemented.');
 };
 
 export {
