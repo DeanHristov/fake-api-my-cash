@@ -1,7 +1,8 @@
 import express from 'express';
 import authenticationGuardMiddleware from '../middlewares/authenticationGuardMiddleware';
 import {
-  createTransaction,
+  createNewTransactionIncome,
+  createNewTransactionOutgoing,
   deleteTransactionById,
   getAllTransactions,
   getAllTransactionsByUserId,
@@ -26,7 +27,8 @@ router.post('/', getAllTransactionsByUserId);
 router.delete('/:transactionId', deleteTransactionById);
 
 // Creating a new transaction
-router.post('/new', createTransaction);
+router.post('/new/income', createNewTransactionIncome);
+router.post('/new/outgoing', createNewTransactionOutgoing);
 
 // Updating existing transaction
 router.patch('/:transactionId', updateTransactionById);

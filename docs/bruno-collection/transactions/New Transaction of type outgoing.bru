@@ -1,0 +1,27 @@
+meta {
+  name: New Transaction of type outgoing
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{URL}}/transactions/new/outgoing
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "userId": 1,
+    "amount": "2500.19",
+    "description": "Monthly Salary",
+    "type": "OUTGOING",
+    "status": "PENDING",
+    "outgoingType":"Regular"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

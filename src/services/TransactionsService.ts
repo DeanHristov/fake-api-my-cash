@@ -1,8 +1,10 @@
 import Utils from '../utils/Utils';
 import DatabaseService from './DatabaseService';
 import { ResultSetHeader } from 'mysql2';
+import { PoolConnection } from 'mysql2/promise';
 
 export type TTransactionType = 'INCOMES' | 'OUTGOING';
+export type TTransactionStatus = 'PENDING' | 'COMPLETED' | 'FAILED';
 
 export interface ILatestAmountPayload {
   amount: string;
@@ -15,6 +17,7 @@ export interface ITransaction {
   description: string;
   transaction_date: string;
   type: TTransactionType;
+  status: TTransactionStatus;
   created_at: string;
   updated_at: string;
 }
@@ -85,6 +88,66 @@ class TransactionsService {
     );
 
     return rows[0]?.amount || '0.00';
+  }
+
+  public async createNewIncomeTransaction(
+    userId: number,
+    amount: string,
+    desc: string,
+    status: TTransactionType,
+    type: TTransactionStatus,
+    incomeType: string,
+  ): Promise<void> {
+    const connection: PoolConnection = await this.db.getConnection();
+
+    await connection.beginTransaction();
+    await connection.execute(
+      `
+        INSERT INTO transactions (user_id, amount, description, type, status)
+        VALUES (?, ?, ?, ?, ?);
+    `,
+      [userId, amount, desc, type, status],
+    );
+
+    await connection.execute(
+      `
+        INSERT INTO incomes (transaction_id, source, is_taxable, amount, income_type)
+        VALUES (LAST_INSERT_ID(), ?, TRUE, ?, ?);
+    `,
+      [desc, amount, incomeType],
+    );
+
+    await connection.commit();
+  }
+
+  public async createNewOutgoingTransaction(
+    userId: number,
+    amount: string,
+    desc: string,
+    status: TTransactionType,
+    type: TTransactionStatus,
+    outgoingType: string,
+  ): Promise<void> {
+    const connection: PoolConnection = await this.db.getConnection();
+
+    await connection.beginTransaction();
+    await connection.execute(
+      `
+        INSERT INTO transactions (user_id, amount, description, type, status)
+        VALUES (?, ?, ?, ?, ?);
+    `,
+      [userId, amount, desc, type, status],
+    );
+
+    await connection.execute(
+      `
+        INSERT INTO outgoings (transaction_id, is_essential, outgoing_type)
+        VALUES (LAST_INSERT_ID(), TRUE, ?);
+    `,
+      [outgoingType],
+    );
+
+    await connection.commit();
   }
 
   public async getLatestOutgoingAmountByUserId(

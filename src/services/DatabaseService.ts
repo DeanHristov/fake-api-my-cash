@@ -1,6 +1,6 @@
 import { FieldPacket } from 'mysql2/typings/mysql/lib/protocol/packets';
 import { IDatabase } from '../types';
-import { createPool, Pool } from 'mysql2/promise';
+import { createPool, Pool, PoolConnection } from 'mysql2/promise';
 
 // This class acts as driver between our API and DB (MySQL)
 
@@ -63,6 +63,10 @@ class DatabaseService implements IDatabase {
       console.error('Error! DB query failed:', error);
       throw error;
     }
+  }
+
+  public async getConnection(): Promise<PoolConnection> {
+    return await this.pool.getConnection();
   }
 
   // Close the pool and all connections

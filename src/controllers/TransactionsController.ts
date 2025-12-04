@@ -65,13 +65,41 @@ const getAllTransactions = async (req: Request, res: NextResponse) => {
 
 const updateTransactionById = async (req: Request, res: NextResponse) => {
   // const { transactionId } = req.params;
+
   //TODO Implement it!
   throw new Error('Method not implemented.');
 };
+const createNewTransactionIncome = async (req: Request, res: NextResponse) => {
+  const { userId, amount, description, type, status, incomeType } = req.body;
 
-const createTransaction = async (req: Request, res: NextResponse) => {
-  //TODO Implement it!
-  throw new Error('Method not implemented.');
+  await transactionsService.createNewIncomeTransaction(
+    userId,
+    amount,
+    description,
+    status,
+    type,
+    incomeType,
+  );
+
+  res.json(new Response('ok'));
+};
+
+const createNewTransactionOutgoing = async (
+  req: Request,
+  res: NextResponse,
+) => {
+  const { userId, amount, description, type, status, outgoingType } = req.body;
+
+  await transactionsService.createNewOutgoingTransaction(
+    userId,
+    amount,
+    description,
+    status,
+    type,
+    outgoingType,
+  );
+
+  res.json(new Response('ok'));
 };
 
 export {
@@ -80,5 +108,6 @@ export {
   getAllTransactions,
   deleteTransactionById,
   updateTransactionById,
-  createTransaction,
+  createNewTransactionIncome,
+  createNewTransactionOutgoing,
 };
