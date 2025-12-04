@@ -6,6 +6,7 @@ import transactionsService, {
 } from '../services/TransactionsService';
 import Utils from '../utils/Utils';
 import ErrorResponse from '../utils/ErrorResponse';
+import { IPagination, ParsedQs, usePagination } from '../utils/usePagination';
 
 // Getting a single transaction
 const getTransactionById = async (req: Request, res: NextResponse) => {
@@ -25,13 +26,21 @@ const getTransactionById = async (req: Request, res: NextResponse) => {
 
 // Getting all transactions peer user in time period
 const getAllTransactionsByUserId = async (req: Request, res: NextResponse) => {
-  const { userId, byDate } = req.body;
+  const { userId, byDate, page, limit } = req.body;
   const transactions: ITransaction[] | null =
     await transactionsService.getAllByUserId(userId, byDate);
 
   //TODO Summarize output data with pagination!
   if (Utils.isNotEmpty(transactions)) {
-    return res.json(new Response<ITransaction[]>('ok', transactions!));
+    const withPagination: IPagination<ITransaction> =
+      usePagination<ITransaction>(transactions || [], {
+        page,
+        limit,
+      } as ParsedQs);
+
+    return res.json(
+      new Response<IPagination<ITransaction>>('ok', withPagination),
+    );
   }
 
   throw new ErrorResponse(
@@ -56,11 +65,17 @@ const deleteTransactionById = async (req: Request, res: NextResponse) => {
 
 // Getting all available transactions
 const getAllTransactions = async (req: Request, res: NextResponse) => {
-  const allTransactions: ITransaction[] | null =
-    await transactionsService.getAll();
+  const allTransactions: ITransaction[] =
+    (await transactionsService.getAll()) || [];
 
-  //TODO Summarize output data with pagination!
-  return res.json(new Response<ITransaction[]>('ok', allTransactions || []));
+  const withPagination: IPagination<ITransaction> = usePagination<ITransaction>(
+    allTransactions,
+    req.query as ParsedQs,
+  );
+
+  return res.json(
+    new Response<IPagination<ITransaction>>('ok', withPagination),
+  );
 };
 
 const updateTransactionById = async (req: Request, res: NextResponse) => {
@@ -70,7 +85,8 @@ const updateTransactionById = async (req: Request, res: NextResponse) => {
   throw new Error('Method not implemented.');
 };
 const createNewTransactionIncome = async (req: Request, res: NextResponse) => {
-  const { userId, amount, description, type, status, incomeType } = req.body;
+  const { userId, amount, description, type, status, incomeType, createdAt } =
+    req.body;
 
   await transactionsService.createNewIncomeTransaction(
     userId,
@@ -79,6 +95,7 @@ const createNewTransactionIncome = async (req: Request, res: NextResponse) => {
     status,
     type,
     incomeType,
+    createdAt,
   );
 
   res.json(new Response('ok'));
@@ -88,7 +105,8 @@ const createNewTransactionOutgoing = async (
   req: Request,
   res: NextResponse,
 ) => {
-  const { userId, amount, description, type, status, outgoingType } = req.body;
+  const { userId, amount, description, type, status, outgoingType, createdAt } =
+    req.body;
 
   await transactionsService.createNewOutgoingTransaction(
     userId,
@@ -97,6 +115,7 @@ const createNewTransactionOutgoing = async (
     status,
     type,
     outgoingType,
+    createdAt,
   );
 
   res.json(new Response('ok'));

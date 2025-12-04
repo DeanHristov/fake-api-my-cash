@@ -1,21 +1,19 @@
-interface ParsedQs {
-  [key: string]: undefined | string | string[] | ParsedQs | ParsedQs[];
-}
-export interface IPagination {
+export interface IPagination<T> {
   limit: number;
   nextPage?: number;
   prevPage?: number;
   totalPages: number;
   totalRecords: number;
-}
-
-export interface IDataFilter<T> extends IPagination {
   data: T[];
 }
 
-const usePagination = <T>(collection: T[], query: ParsedQs): IDataFilter<T> => {
+export interface ParsedQs {
+  [key: string]: undefined | string | ParsedQs | (string | ParsedQs)[];
+}
+
+const usePagination = <T>(collection: T[], query: ParsedQs): IPagination<T> => {
   const { page, limit } = query;
-  const pagination: IPagination = {} as IPagination;
+  const pagination: IPagination<T> = {} as IPagination<T>;
 
   const currentPage = Number(page) || 1;
   const pageLimit = Number(limit) || 10;

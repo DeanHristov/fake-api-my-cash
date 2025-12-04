@@ -31,6 +31,7 @@ router.post('/new/income', createNewTransactionIncome);
 router.post('/new/outgoing', createNewTransactionOutgoing);
 
 // Updating existing transaction
-router.patch('/:transactionId', updateTransactionById);
+router.patch('/:transactionId/income', updateTransactionById);
+router.patch('/:transactionId/outgoing', updateTransactionById);
 
 export default router;

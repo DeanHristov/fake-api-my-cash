@@ -5,15 +5,22 @@ meta {
 }
 
 post {
-  url: {{URL}}/transactions
+  url: {{URL}}/transactions?page=1&limit=10
   body: json
   auth: inherit
 }
 
+params:query {
+  page: 1
+  limit: 10
+}
+
 body:json {
   {
-    "userId": "1",
-    "byDate": "2024-02-07"
+    "userId": 1,
+    "byDate": "2025-12-03",
+    "limit": 20,
+    "page": 1
   }
 }
 

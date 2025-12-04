@@ -4,6 +4,7 @@ import { STATUS_CODE } from '../utils/statusCodes';
 import incomesService, { IIncome } from '../services/IncomesService';
 import ErrorResponse from '../utils/ErrorResponse';
 import Utils from '../utils/Utils';
+import { IPagination, usePagination } from '../utils/usePagination';
 
 const getIncomeById = async (req: Request, res: NextResponse) => {
   const { incomeId } = req.params;
@@ -23,8 +24,10 @@ const getIncomeById = async (req: Request, res: NextResponse) => {
 
 const getAllIncomes = async (req: Request, res: NextResponse) => {
   const records: IIncome[] = await incomesService.getAll();
-
-  res.status(STATUS_CODE.OK).json(new Response('ok', records || []));
+  const withPagination = usePagination<IIncome>(records, req.query);
+  res
+    .status(STATUS_CODE.OK)
+    .json(new Response<IPagination<IIncome>>('ok', withPagination));
 };
 
 const getAllByDate = async (req: Request, res: NextResponse) => {

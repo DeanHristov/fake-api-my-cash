@@ -43,7 +43,7 @@ class TransactionsService {
     date: string,
   ): Promise<ITransaction[] | null> {
     const [rows] = await this.db.execute<ITransaction[]>(
-      'SELECT * FROM `transactions` WHERE `user_id` and `created_at` = ?',
+      'SELECT * FROM `transactions` WHERE `user_id` = ? and YEAR(created_at) = ?;',
       [userId, date],
     );
 
@@ -81,7 +81,7 @@ class TransactionsService {
                 left join incomes as i on i.id = t.id
             where t.user_id = ?
             and t.type = 'INCOMES'
-            order by t.transaction_date desc
+            order by t.created_at desc
             limit 1;
       `,
       [userId],
@@ -97,16 +97,17 @@ class TransactionsService {
     status: TTransactionType,
     type: TTransactionStatus,
     incomeType: string,
+    createdAt: string,
   ): Promise<void> {
     const connection: PoolConnection = await this.db.getConnection();
 
     await connection.beginTransaction();
     await connection.execute(
       `
-        INSERT INTO transactions (user_id, amount, description, type, status)
-        VALUES (?, ?, ?, ?, ?);
+        INSERT INTO transactions (user_id, amount, description, type, status, created_at)
+        VALUES (?, ?, ?, ?, ?, ?);
     `,
-      [userId, amount, desc, type, status],
+      [userId, amount, desc, type, status, createdAt],
     );
 
     await connection.execute(
@@ -127,16 +128,17 @@ class TransactionsService {
     status: TTransactionType,
     type: TTransactionStatus,
     outgoingType: string,
+    createdAt: string,
   ): Promise<void> {
     const connection: PoolConnection = await this.db.getConnection();
 
     await connection.beginTransaction();
     await connection.execute(
       `
-        INSERT INTO transactions (user_id, amount, description, type, status)
-        VALUES (?, ?, ?, ?, ?);
+        INSERT INTO transactions (user_id, amount, description, type, status, created_at)
+        VALUES (?, ?, ?, ?, ?, ?);
     `,
-      [userId, amount, desc, type, status],
+      [userId, amount, desc, type, status, createdAt],
     );
 
     await connection.execute(
@@ -160,7 +162,7 @@ class TransactionsService {
                 left join outgoings as o on o.id = t.id
             where t.user_id = ?
             and t.type = 'OUTGOING'
-            order by t.transaction_date desc
+            order by t.created_at desc
             limit 1;
       `,
       [userId],

@@ -5,9 +5,14 @@ meta {
 }
 
 get {
-  url: {{URL}}/transactions
+  url: {{URL}}/transactions?page=1&limit=10
   body: json
   auth: inherit
+}
+
+params:query {
+  page: 1
+  limit: 10
 }
 
 settings {

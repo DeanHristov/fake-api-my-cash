@@ -46,7 +46,9 @@ const singOut = async (
   next: NextFunction,
 ) => {
   //TODO Implement it!
-  throw new Error('Method not implemented.');
+
+  delete res.locals.user;
+  res.json(new Response('Ok'));
 };
 
 export { singIn, singUp, singOut };
