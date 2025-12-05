@@ -35,7 +35,13 @@ app.use(cookieParser());
 app.use(hpp());
 
 // Enable CORS
-app.use(cors());
+app.use(
+  cors({
+    origin: true, //['http://localhost:3001'],
+    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+    credentials: true,
+  }),
+);
 
 // Prevent multiple request from one client per 10 minutes
 app.use(

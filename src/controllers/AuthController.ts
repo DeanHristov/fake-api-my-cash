@@ -48,6 +48,7 @@ const singOut = async (
   //TODO Implement it!
 
   delete res.locals.user;
+  res.clearCookie('token');
   res.json(new Response('Ok'));
 };
 
