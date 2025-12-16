@@ -224,6 +224,7 @@ on [NPM scripts](https://docs.npmjs.com/misc/scripts).
 - ExpressJS (v5+) - https://expressjs.com/
 - Git - https://git-scm.com/
 - Docker - https://www.docker.com/
+- MySQL - https://www.mysql.com/
 
 ## Made by
 
